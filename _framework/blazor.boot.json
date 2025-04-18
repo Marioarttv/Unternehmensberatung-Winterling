@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "Unternehmensberatung-Winterling",
   "resources": {
-    "hash": "sha256-SI+BiD7e2fmvQH7eK+ZbMCqcDafq79QbNYCdoj3nE/I=",
+    "hash": "sha256-SVgXuUBSeaG0MJmKMyK3EYgNQjflDFbrjgVDZzvHKlc=",
     "jsModuleNative": {
       "dotnet.native.js": "sha256-VdKq87/z5NIxZKmuM+fv38XF+RcEb/bg3jVBwQSfwP4="
     },
@@ -19,8 +19,8 @@
     "coreAssembly": {},
     "assembly": {
       "BouncyCastle.Cryptography.wasm": "sha256-gy0YVyBWlVPAW/D2WdBB/hMOkSFk7t4D1p0xyiKNrcs=",
-      "Microsoft.AspNetCore.Components.wasm": "sha256-33h5H15nUGZiZrzua0Zu4amvB2jxp7YJaVBC1bhAOZo=",
-      "Microsoft.AspNetCore.Components.Web.wasm": "sha256-mWLK9WwN9qbpBIoh1iEedDluCdntqP67Bu9YRuU73JU=",
+      "Microsoft.AspNetCore.Components.wasm": "sha256-bKjQqqapmB5XzqqE1McLG0kHIv6/R7CBut9nQRv+Ebo=",
+      "Microsoft.AspNetCore.Components.Web.wasm": "sha256-T9oUm7Z3sQRhmhfHrEodrGyYLeGaTk+s7J6uNrTwF0M=",
       "Microsoft.AspNetCore.Components.WebAssembly.wasm": "sha256-QQOcBDu5Rl/lLCWkwHn7BGdAtS9Eg1Qbafc/mUV3kKU=",
       "Microsoft.Extensions.Configuration.Abstractions.wasm": "sha256-XR+WUfg8LtnrwdXFBnV+qO3ROyp6cYCfl1AZajIAheM=",
       "Microsoft.Extensions.Configuration.Json.wasm": "sha256-Nbv4DDWJLbUri+9QrX+3vnA2FV/Qux8Jm1buTARMlBs=",
@@ -43,8 +43,8 @@
       "System.Net.Http.wasm": "sha256-ix1C9SgQeAWAvsXS06elFkNgnYU7+1luqeAjKNDgovY=",
       "System.Net.Primitives.wasm": "sha256-fr9MpN7leWmFZq5YB+YPuIkYu9D0a5sfJSurH4j0xUg=",
       "System.Numerics.Vectors.wasm": "sha256-HvRPUqBqa7jqE/ETHlatE0dd5ELelcMVHof7wvzAq54=",
-      "System.Private.CoreLib.wasm": "sha256-2CUtpcj5P1yt+TkTesj5+MNKNv246iN3Mzmucz9HDMo=",
-      "System.Private.Uri.wasm": "sha256-80GO5peytfXJCTIBGcbRV4R1nytf/8tFwROQShgz0YU=",
+      "System.Private.CoreLib.wasm": "sha256-eMKdL+NaLAs0vz8rbYf3bLWhrRYZb7zDL+a98KV0/dU=",
+      "System.Private.Uri.wasm": "sha256-uQwqLPC9V4MYp9QNtGb0Awq/fWsdTCEfcd65sEx4Q7U=",
       "System.Runtime.CompilerServices.Unsafe.wasm": "sha256-b/1U5annI0Q5dsVkN5VDcG62sOiJq9Y8cE96gGBOYs0=",
       "System.Runtime.InteropServices.JavaScript.wasm": "sha256-6w23myHuMfS7m7Vn3jTIS2Bl8BwZwKBJoxXCGXBWGBo=",
       "System.Runtime.Intrinsics.wasm": "sha256-IMK0AaIzvvyYN+bYNCSsDDK1GaVr3hRfJdbh+6Z94Do=",
@@ -59,7 +59,7 @@
       "System.Text.Json.wasm": "sha256-DyP2B/PTERg2ekwlN3jV8xJELQaHn1zmZnLYsGVlCFE=",
       "System.Text.RegularExpressions.wasm": "sha256-Vl6qsUyQnmrFUIVFVAqnAW1pMOKHVi0p3ZmPfB2mQ98=",
       "System.Threading.wasm": "sha256-gcKBEfBxg8tm/c6fR2rpaf54aIMLqfz2C9fODoeXmRE=",
-      "Unternehmensberatung-Winterling.wasm": "sha256-etgJsFdVT7T1d2r5KoeOY1FnhFezCaYy/Cal1tPk1Aw="
+      "Unternehmensberatung-Winterling.wasm": "sha256-AyPXbS84ilgw2/5l8T45XRhUoKH5Xs6Mt1kAb/OCTm0="
     }
   },
   "cacheBootResources": true,
