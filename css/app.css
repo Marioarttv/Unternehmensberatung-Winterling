@@ -1,4 +1,4 @@
-.valid.modified:not([type=checkbox]) {
+﻿.valid.modified:not([type=checkbox]) {
     outline: 1px solid #26b050;
 }
 
@@ -74,4 +74,18 @@
 
 code {
     color: #c02d76;
+}
+.hero-content h1:focus:not(:focus-visible) {
+    outline: 0;
+}
+
+/*  put this at the very end of wwwroot/css/app.css (or the last‑loaded stylesheet)  */
+h1:focus,
+h2:focus,
+h3:focus,
+h4:focus,
+h5:focus,
+h6:focus {
+    outline: none !important; /* Chrome / Edge / Firefox */
+    box-shadow: none !important; /* Safari (uses box‑shadow for focus) */
 }

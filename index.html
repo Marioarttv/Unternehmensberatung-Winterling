@@ -158,31 +158,20 @@
         <a class="dismiss">🗙</a>
     </div>
 
-    <!-- ---------- Loader / Blazor bootstrap script ---------- -->
-    <script>
-        // Called once Blazor is ready
-        function hideLoader() {
-            document.body.classList.add('blazor-ready');
-            // optional: remove the node entirely
-            document.getElementById('loading-screen').remove();
-        }
+    <!-- Blazor runtime -->
+    <script src="_framework/blazor.webassembly.js" autostart="false"></script>
 
-        window.addEventListener('DOMContentLoaded', () => {
-            // For .NET 8 auto‑start Blazor WASM
-            if (window.Blazor && window.Blazor.start instanceof Promise) {
-                window.Blazor.start.then(hideLoader).catch(hideLoader);
+    <!-- Loader helper – hides #loading‑screen once Blazor is ready -->
+    <script>
+        (function () {
+            function hideLoader() {
+                document.body.classList.add('blazor-ready');
+                document.getElementById('loading-screen')?.remove();
             }
-            // For manual start
-            else if (window.Blazor && typeof window.Blazor.start === 'function') {
-                window.Blazor.start().then(hideLoader).catch(hideLoader);
-            }
-            // Fallback: hide after full window load
-            else {
-                window.addEventListener('load', hideLoader);
-            }
-        });
+
+            Blazor.start().then(hideLoader).catch(hideLoader);
+        })();
     </script>
 
-    <script src="_framework/blazor.webassembly.js"></script>
 </body>
 </html>
