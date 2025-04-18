@@ -1,185 +1,106 @@
-﻿// Function to handle smooth scrolling
-function scrollToSection(elementId) {
-    const element = document.getElementById(elementId);
-    if (element) {
-        // Get the height of the sticky navigation
-        const navHeight = document.querySelector('.services-nav')?.offsetHeight || 0;
+﻿/* smoothScrolling.js — single, self‑contained version  
+   Wraps everything in an IIFE so no globals leak and avoids duplicate declarations.
+   Exposes only the public helpers on window. */
+(() => {
+    // ---------- Helpers ----------
+    const $ = (sel, ctx = document) => ctx.querySelector(sel);
+    const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
-        // Calculate the element's position relative to the document
-        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+    /* -------------------- Smooth scrolling -------------------- */
+    function scrollToSection(id) {
+        const el = document.getElementById(id);
+        if (!el) return false;
 
-        // Calculate the offset position accounting for the sticky nav
-        const offsetPosition = elementPosition - navHeight - 20; // Adding a small buffer
+        const navHeight = $('.services-nav')?.offsetHeight || 0;
+        const targetY = el.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
 
-        // Perform the smooth scroll
-        window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-        });
-
-        // Update active state in navigation
-        updateActiveNavItem(elementId);
-
-        // Return true to indicate success
+        window.scrollTo({ top: targetY, behavior: 'smooth' });
+        updateActiveNavItem(id);
         return true;
     }
-    // Return false if element not found
-    return false;
-}
 
-// Function to scroll to top smoothly
-function scrollToTop() {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-}
-
-/// Function to update active navigation item (improved version)
-function updateActiveNavItem(elementId) {
-    // Remove active class from all nav items
-    const navItems = document.querySelectorAll('.services-nav-item');
-    navItems.forEach(item => {
-        item.classList.remove('active');
-    });
-
-    // Find the corresponding nav item using a data attribute instead of onclick
-    const navItems = document.querySelectorAll('.services-nav-item');
-    for (let i = 0; i < navItems.length; i++) {
-        // Extract the section ID from the onclick function name
-        const onclickValue = navItems[i].getAttribute('onclick');
-        if (onclickValue && onclickValue.includes(elementId)) {
-            navItems[i].classList.add('active');
-            break;
-        }
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-}
 
-// Function to update active filter button
-function updateActiveFilterButton(category) {
-    // Remove active class from all filter buttons
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    filterButtons.forEach(button => {
-        button.classList.remove('active');
-    });
-
-    // Add active class to the clicked filter button
-    const clickedButton = document.querySelector(`.filter-btn[data-category="${category}"]`);
-    if (clickedButton) {
-        clickedButton.classList.add('active');
-    }
-}
-
-// Function to filter case studies
-function filterCaseStudies(category) {
-    const caseStudies = document.querySelectorAll('.case-study-card');
-
-    if (category === 'all') {
-        // Show all case studies
-        caseStudies.forEach(study => {
-            study.style.display = 'flex';
-        });
-    } else {
-        // Filter case studies based on category
-        caseStudies.forEach(study => {
-            if (study.dataset.category.includes(category)) {
-                study.style.display = 'flex';
-            } else {
-                study.style.display = 'none';
-            }
+    /* -------------------- Active‑link handling -------------------- */
+    function updateActiveNavItem(id) {
+        $$('.services-nav-item').forEach(item => {
+            item.classList.toggle('active',
+                // data‑dataset or href or legacy onclick matches the id
+                item.dataset.target === id ||
+                (item.getAttribute('href') || '').endsWith(`#${id}`) ||
+                (item.getAttribute('onclick') || '').includes(id));
         });
     }
 
-    // Update active button
-    updateActiveFilterButton(category);
-}
+    /* -------------------- Case‑study filtering -------------------- */
+    function updateActiveFilterButton(cat) {
+        $$('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.category === cat));
+    }
 
-// Improved setupScrollSpy function with debounce
-function setupScrollSpy() {
-    const sections = document.querySelectorAll('.service-detail');
-    const navItems = document.querySelectorAll('.services-nav-item');
-    const navHeight = document.querySelector('.services-nav')?.offsetHeight || 0;
+    function filterCaseStudies(cat) {
+        $$('.case-study-card').forEach(card => {
+            card.style.display = (cat === 'all' || card.dataset.category.includes(cat)) ? 'flex' : 'none';
+        });
+        updateActiveFilterButton(cat);
+    }
 
-    if (sections.length > 0 && navItems.length > 0) {
-        // Create a debounced scroll handler
-        let scrollTimeout;
+    /* -------------------- Scroll‑spy -------------------- */
+    function setupScrollSpy() {
+        const sections = $$('.service-detail');
+        const navHeight = $('.services-nav')?.offsetHeight || 0;
+        if (!sections.length) return;
 
+        let timeout;
         window.addEventListener('scroll', () => {
-            // Clear the timeout if it exists
-            if (scrollTimeout) {
-                clearTimeout(scrollTimeout);
-            }
-
-            // Set a timeout to run the scroll spy logic
-            scrollTimeout = setTimeout(() => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                const scrollPos = window.pageYOffset + navHeight + 100;
                 let current = '';
-                let closestDistance = Infinity;
-                const scrollPosition = window.pageYOffset + navHeight + 100;
+                let closest = Infinity;
 
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.offsetHeight;
-
-                    // Find the section closest to the viewport top
-                    if (scrollPosition >= sectionTop &&
-                        scrollPosition <= sectionTop + sectionHeight) {
-                        const distance = Math.abs(scrollPosition - (sectionTop + sectionHeight / 2));
-                        if (distance < closestDistance) {
-                            closestDistance = distance;
-                            current = section.getAttribute('id');
+                sections.forEach(sec => {
+                    const top = sec.offsetTop;
+                    const bottom = top + sec.offsetHeight;
+                    if (scrollPos >= top && scrollPos <= bottom) {
+                        const dist = Math.abs(scrollPos - (top + sec.offsetHeight / 2));
+                        if (dist < closest) {
+                            closest = dist;
+                            current = sec.id;
                         }
                     }
                 });
-
-                if (current) {
-                    updateActiveNavItem(current);
-                }
-            }, 50); // 50ms debounce
+                if (current) updateActiveNavItem(current);
+            }, 50);
         });
     }
-}
 
-// Add this function to your existing smoothScrolling.js file
+    /* -------------------- Fragment jump after load -------------------- */
+    function checkForFragmentAndScroll() {
+        setTimeout(() => {
+            const frag = window.location.hash.slice(1);
+            if (frag) scrollToSection(frag);
+        }, 500);
+    }
 
-// Improved fragment handler
-function checkForFragmentAndScroll() {
-    setTimeout(() => {
-        const fragment = window.location.hash.substring(1);
-        if (fragment) {
-            scrollToSection(fragment);
-        }
-    }, 500); // Give page time to fully load
-}
+    /* -------------------- Public init -------------------- */
+    function initScrolling() {
+        setupScrollSpy();
+        checkForFragmentAndScroll();
+    }
 
-// IMPORTANT: This is the function name your Blazor code is trying to call
-function initScrolling() {
-    console.log("initScrolling called - starting setup...");
-    setupScrollSpy();
-    checkForFragmentAndScroll();
-    console.log("initScrolling completed");
-    return true;
-}
+    // Run automatically on DOM ready (keeps MainLayout simpler)
+    document.addEventListener('DOMContentLoaded', initScrolling);
 
-    // Setup scroll spy
-    setupScrollSpy();
-
-    // Check for fragment in URL
-    checkForFragmentAndScroll();
-
-    return true;
-}
-
-// Make the function available globally
-window.checkForFragmentAndScroll = checkForFragmentAndScroll;
-
-// Initialize scroll spy when the page loads
-document.addEventListener('DOMContentLoaded', setupScrollSpy);
-
-// Make functions available globally
-window.scrollToSection = scrollToSection;
-window.scrollToTop = scrollToTop;
-window.updateActiveNavItem = updateActiveNavItem;
-window.setupScrollSpy = setupScrollSpy;
-window.filterCaseStudies = filterCaseStudies;
-window.initScrolling = initScrolling;
-window.checkForFragmentAndScroll = checkForFragmentAndScroll;
+    // Expose helpers Blazor might call
+    Object.assign(window, {
+        scrollToSection,
+        scrollToTop,
+        updateActiveNavItem,
+        setupScrollSpy,
+        filterCaseStudies,
+        initScrolling,
+        checkForFragmentAndScroll
+    });
+})();

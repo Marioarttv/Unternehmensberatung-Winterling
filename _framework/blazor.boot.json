@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "Unternehmensberatung-Winterling",
   "resources": {
-    "hash": "sha256-02RmdpfuGDwhsF3jCK+hqMPvIoK5pQFSBhCMYKpa1OI=",
+    "hash": "sha256-abKXoX1Wy1uch4qaEg+bqfvPfX34FSQnaQ/qycMs9vM=",
     "jsModuleNative": {
       "dotnet.native.js": "sha256-VdKq87/z5NIxZKmuM+fv38XF+RcEb/bg3jVBwQSfwP4="
     },
@@ -36,7 +36,7 @@
       "System.Collections.Concurrent.wasm": "sha256-kYdUxM0m0gfNJ0y0IKrJ4hmjD5Ty8u6zskxV+44Nn6g=",
       "System.Collections.wasm": "sha256-0A9Qepx1gCI4RakGZzkeXmwff2zKaSf6n82+NdgzoRA=",
       "System.ComponentModel.wasm": "sha256-0D0DRqYaKmrhzGtdZW6smjKyylnAR86CtU2JGYAUBY8=",
-      "System.Console.wasm": "sha256-YfsdjyjKNpkL5OjZLf7WnSn5oJHTNMbF3o9/fFQ4yZA=",
+      "System.Console.wasm": "sha256-f0dNv+Jvj1xxMNkiVvDNE0s7FeevQS5FXgICymJpBoU=",
       "System.IO.Compression.wasm": "sha256-heiiO4s6x+tn1UL9nRFbhoHmToAJjlUge/w2QwpFBro=",
       "System.Linq.wasm": "sha256-J3pTx+2B8Cv338LEAnQ060aWDnrIQdtDYLX3QISmkYw=",
       "System.Memory.wasm": "sha256-/hvwMrY6sJEUfdhXHCU8dzrcykwm2uYaWFoU7PPqQaA=",
@@ -59,7 +59,7 @@
       "System.Text.Json.wasm": "sha256-DyP2B/PTERg2ekwlN3jV8xJELQaHn1zmZnLYsGVlCFE=",
       "System.Text.RegularExpressions.wasm": "sha256-Vl6qsUyQnmrFUIVFVAqnAW1pMOKHVi0p3ZmPfB2mQ98=",
       "System.Threading.wasm": "sha256-gcKBEfBxg8tm/c6fR2rpaf54aIMLqfz2C9fODoeXmRE=",
-      "Unternehmensberatung-Winterling.wasm": "sha256-zBbfNz2OhWp88aZkBR4SpLDCuOWrkTbmsG5UKIoI0LI="
+      "Unternehmensberatung-Winterling.wasm": "sha256-kzmOqliopkXXjJ17jE0eEYMQwgaGRdpr83lCkC7tRCM="
     }
   },
   "cacheBootResources": true,
