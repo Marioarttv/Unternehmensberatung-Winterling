@@ -5,160 +5,20 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Unternehmensberatung-Winterling</title>
-    <!--<base href="/">-->
-    <base href="/Unternehmensberatung-Winterling/">
+    <!--<base href="/Unternehmensberatung-Winterling/">-->
+    <base href="/">
     <link rel="stylesheet" href="css/app.css" />
-    <style>
-        /* Import color variables from your main CSS (or redefine them here if app.css loads later) */
-        /* For simplicity, I'll redefine the necessary ones here. Ideally, manage this in your CSS build process. */
-        :root {
-            --primary-color: #1a3b6e; /* Deep navy blue */
-            --primary-light: #2d6cbc; /* Bright blue */
-            --accent-color: #7c8fa0; /* Steel blue */
-            --light-color: #f8faff; /* Crisp white with slight blue tint */
-            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            --text-color: #2d2d2d;
-        }
-
-        /* Loading Screen Styles */
-        #app {
-            position: fixed; /* Cover the whole viewport */
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            flex-direction: column; /* Stack shapes and text */
-            justify-content: center;
-            align-items: center;
-            background-color: var(--light-color); /* Match landing page background */
-            z-index: 9999; /* Ensure it's on top */
-            font-family: var(--font-main);
-            overflow: hidden; /* Prevent scrollbars during loading */
-            transition: opacity 0.5s ease-out; /* Optional: fade out when Blazor loads */
-        }
-
-        .loading-container {
-            position: relative;
-            width: 200px; /* Adjust size as needed */
-            height: 200px; /* Adjust size as needed */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .loading-shape {
-            position: absolute;
-            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            opacity: 0.7;
-            animation: loading-pulse 2.5s ease-in-out infinite, loading-rotate 20s linear infinite;
-        }
-
-        .loading-shape-1 {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(45, 108, 188, 0.3), rgba(169, 184, 201, 0.2)); /* Lighter blue/accent mix */
-            animation-delay: 0s;
-        }
-
-        .loading-shape-2 {
-            width: 80%;
-            height: 80%;
-            background: linear-gradient(45deg, rgba(26, 59, 110, 0.4), rgba(124, 143, 160, 0.3)); /* Darker blue/accent mix */
-            animation-delay: -0.5s; /* Offset animation */
-            border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; /* Different shape */
-        }
-
-        .loading-shape-3 {
-            width: 60%;
-            height: 60%;
-            background: linear-gradient(45deg, rgba(45, 108, 188, 0.5), rgba(26, 59, 110, 0.4)); /* Primary colors mix */
-            animation-delay: -1s; /* Further offset animation */
-            border-radius: 50% 50% 40% 60% / 60% 50% 50% 40%; /* Another different shape */
-        }
-
-        .loading-text {
-            margin-top: 2rem;
-            font-size: 1.2rem;
-            color: var(--primary-color);
-            font-weight: 600;
-            animation: loading-fade-text 2.5s ease-in-out infinite;
-        }
-
-        @keyframes loading-pulse {
-            0%, 100% {
-                transform: scale(0.95);
-                opacity: 0.6;
-            }
-
-            50% {
-                transform: scale(1.05);
-                opacity: 0.8;
-            }
-        }
-
-        @keyframes loading-rotate {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        @keyframes loading-fade-text {
-            0%, 100% {
-                opacity: 0.7;
-            }
-
-            50% {
-                opacity: 1;
-            }
-        }
-
-        /* Styles for the Blazor error UI */
-        #blazor-error-ui {
-            background: lightyellow;
-            bottom: 0;
-            box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
-            display: none; /* Hide by default */
-            left: 0;
-            padding: 0.6rem 1.25rem 0.7rem 1.25rem;
-            position: fixed;
-            width: 100%;
-            z-index: 10000; /* Ensure error UI is above loading screen */
-            font-family: var(--font-main);
-            color: var(--text-color);
-        }
-
-            #blazor-error-ui .dismiss {
-                cursor: pointer;
-                position: absolute;
-                right: 0.75rem;
-                top: 0.5rem;
-            }
-
-        /* Make sure app.css styles don't conflict badly */
-        /* You might need to inspect elements if the default spinner still appears */
-        .loading-progress {
-            display: none !important; /* Hide default Blazor spinner if necessary */
-        }
-
-        .loading-progress-text {
-            display: none !important; /* Hide default Blazor text if necessary */
-        }
-    </style>
+    <!-- If you add any scoped CSS files, uncomment the following to load them
+    <link href="Unternehmensberatung-Winterling.styles.css" rel="stylesheet" /> -->
 </head>
 
 <body>
     <div id="app">
-        <div class="loading-container">
-            <div class="loading-shape loading-shape-1"></div>
-            <div class="loading-shape loading-shape-2"></div>
-            <div class="loading-shape loading-shape-3"></div>
-        </div>
-        <div class="loading-text">Laden...</div>
+        <svg class="loading-progress">
+            <circle r="40%" cx="50%" cy="50%" />
+            <circle r="40%" cx="50%" cy="50%" />
+        </svg>
+        <div class="loading-progress-text"></div>
     </div>
 
     <div id="blazor-error-ui">
@@ -166,7 +26,6 @@
         <a href="" class="reload">Reload</a>
         <a class="dismiss">🗙</a>
     </div>
-
     <script src="_framework/blazor.webassembly.js"></script>
 </body>
 
