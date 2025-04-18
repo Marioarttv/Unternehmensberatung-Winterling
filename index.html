@@ -1,173 +1,187 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Unternehmensberatung-Winterling</title>
-    <base href="/Unternehmensberatung-Winterling/">
-    <!--<base href="/">-->
+    <title>Unternehmensberatung‑Winterling</title>
+
+    <!--  ◉ Local dev  = "/"         ◉ GitHub Pages project site = "/Unternehmensberatung-Winterling/" -->
+    <base href="/" />
+
     <link rel="stylesheet" href="css/app.css" />
+
+    <!-- ---------- Loader styles ---------- -->
     <style>
-        /* Import color variables from your main CSS (or redefine them here if app.css loads later) */
-        /* For simplicity, I'll redefine the necessary ones here. Ideally, manage this in your CSS build process. */
         :root {
-            --primary-color: #1a3b6e; /* Deep navy blue */
-            --primary-light: #2d6cbc; /* Bright blue */
-            --accent-color: #7c8fa0; /* Steel blue */
-            --light-color: #f8faff; /* Crisp white with slight blue tint */
+            --primary-color: #1a3b6e;
+            --primary-light: #2d6cbc;
+            --accent-color: #7c8fa0;
+            --light-color: #f8faff;
             --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             --text-color: #2d2d2d;
         }
 
-        /* Loading Screen Styles */
-        #app {
-            position: fixed; /* Cover the whole viewport */
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+        /* Full‑screen loading overlay */
+        #loading-screen {
+            position: fixed;
+            inset: 0;
             display: flex;
-            flex-direction: column; /* Stack shapes and text */
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: var(--light-color); /* Match landing page background */
-            z-index: 9999; /* Ensure it's on top */
+            background: var(--light-color);
+            z-index: 9999;
             font-family: var(--font-main);
-            overflow: hidden; /* Prevent scrollbars during loading */
-            transition: opacity 0.5s ease-out; /* Optional: fade out when Blazor loads */
+            transition: opacity .4s ease, visibility .4s ease;
         }
 
+        /* Geometric blobs */
         .loading-container {
             position: relative;
-            width: 200px; /* Adjust size as needed */
-            height: 200px; /* Adjust size as needed */
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            width: 200px;
+            height: 200px;
         }
 
         .loading-shape {
             position: absolute;
+            inset: 0;
             border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            opacity: 0.7;
-            animation: loading-pulse 2.5s ease-in-out infinite, loading-rotate 20s linear infinite;
+            opacity: .7;
+            animation: pulse 2.5s ease-in-out infinite, spin 20s linear infinite;
         }
 
-        .loading-shape-1 {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(45, 108, 188, 0.3), rgba(169, 184, 201, 0.2)); /* Lighter blue/accent mix */
-            animation-delay: 0s;
-        }
+            .loading-shape:nth-child(2) {
+                inset: 10%;
+                border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+                animation-delay: -.5s;
+            }
 
-        .loading-shape-2 {
-            width: 80%;
-            height: 80%;
-            background: linear-gradient(45deg, rgba(26, 59, 110, 0.4), rgba(124, 143, 160, 0.3)); /* Darker blue/accent mix */
-            animation-delay: -0.5s; /* Offset animation */
-            border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; /* Different shape */
-        }
+            .loading-shape:nth-child(3) {
+                inset: 20%;
+                border-radius: 50% 50% 40% 60% / 60% 50% 50% 40%;
+                animation-delay: -1s;
+            }
 
-        .loading-shape-3 {
-            width: 60%;
-            height: 60%;
-            background: linear-gradient(45deg, rgba(45, 108, 188, 0.5), rgba(26, 59, 110, 0.4)); /* Primary colors mix */
-            animation-delay: -1s; /* Further offset animation */
-            border-radius: 50% 50% 40% 60% / 60% 50% 50% 40%; /* Another different shape */
-        }
+            .loading-shape:nth-child(1) {
+                background: linear-gradient(45deg, rgba(45,108,188,.30), rgba(169,184,201,.20));
+            }
+
+            .loading-shape:nth-child(2) {
+                background: linear-gradient(45deg, rgba(26,59,110,.40), rgba(124,143,160,.30));
+            }
+
+            .loading-shape:nth-child(3) {
+                background: linear-gradient(45deg, rgba(45,108,188,.50), rgba(26,59,110,.40));
+            }
 
         .loading-text {
             margin-top: 2rem;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--primary-color);
             font-weight: 600;
-            animation: loading-fade-text 2.5s ease-in-out infinite;
         }
 
-        @keyframes loading-pulse {
-            0%, 100% {
-                transform: scale(0.95);
-                opacity: 0.6;
+        @keyframes pulse {
+            0%,100% {
+                transform: scale(.95);
+                opacity: .6;
             }
 
             50% {
                 transform: scale(1.05);
-                opacity: 0.8;
+                opacity: .8;
             }
         }
 
-        @keyframes loading-rotate {
-            from {
-                transform: rotate(0deg);
-            }
-
+        @keyframes spin {
             to {
                 transform: rotate(360deg);
             }
         }
 
-        @keyframes loading-fade-text {
-            0%, 100% {
-                opacity: 0.7;
-            }
-
-            50% {
-                opacity: 1;
-            }
+        /* Hide overlay once Blazor says we're ready */
+        body.blazor-ready #loading-screen {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
         }
 
-        /* Styles for the Blazor error UI */
+        /* Blazor default spinner/text stay hidden */
+        .loading-progress,
+        .loading-progress-text {
+            display: none !important;
+        }
+
+        /* Blazor error UI (unchanged) */
         #blazor-error-ui {
-            background: lightyellow;
-            bottom: 0;
-            box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
-            display: none; /* Hide by default */
-            left: 0;
-            padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+            display: none;
             position: fixed;
+            bottom: 0;
+            left: 0;
             width: 100%;
-            z-index: 10000; /* Ensure error UI is above loading screen */
+            background: lightyellow;
+            box-shadow: 0 -1px 2px rgba(0,0,0,.2);
+            padding: .6rem 1.25rem .7rem;
             font-family: var(--font-main);
             color: var(--text-color);
+            z-index: 10000;
         }
 
             #blazor-error-ui .dismiss {
-                cursor: pointer;
                 position: absolute;
-                right: 0.75rem;
-                top: 0.5rem;
+                right: .75rem;
+                top: .5rem;
+                cursor: pointer;
             }
-
-        /* Make sure app.css styles don't conflict badly */
-        /* You might need to inspect elements if the default spinner still appears */
-        .loading-progress {
-            display: none !important; /* Hide default Blazor spinner if necessary */
-        }
-
-        .loading-progress-text {
-            display: none !important; /* Hide default Blazor text if necessary */
-        }
     </style>
 </head>
 
 <body>
-    <div id="app">
+    <!-- Loader -->
+    <div id="loading-screen">
         <div class="loading-container">
-            <div class="loading-shape loading-shape-1"></div>
-            <div class="loading-shape loading-shape-2"></div>
-            <div class="loading-shape loading-shape-3"></div>
+            <div class="loading-shape"></div>
+            <div class="loading-shape"></div>
+            <div class="loading-shape"></div>
         </div>
-        <div class="loading-text">Laden...</div>
+        <div class="loading-text">Laden …</div>
     </div>
+
+    <!-- Blazor mount point (leave empty) -->
+    <div id="app"></div>
 
     <div id="blazor-error-ui">
         An unhandled error has occurred.
-        <a href="" class="reload">Reload</a>
+        <a href="" class="reload">Neu laden</a>
         <a class="dismiss">🗙</a>
     </div>
 
+    <!-- ---------- Loader / Blazor bootstrap script ---------- -->
+    <script>
+        // Called once Blazor is ready
+        function hideLoader() {
+            document.body.classList.add('blazor-ready');
+            // optional: remove the node entirely
+            document.getElementById('loading-screen').remove();
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // For .NET 8 auto‑start Blazor WASM
+            if (window.Blazor && window.Blazor.start instanceof Promise) {
+                window.Blazor.start.then(hideLoader).catch(hideLoader);
+            }
+            // For manual start
+            else if (window.Blazor && typeof window.Blazor.start === 'function') {
+                window.Blazor.start().then(hideLoader).catch(hideLoader);
+            }
+            // Fallback: hide after full window load
+            else {
+                window.addEventListener('load', hideLoader);
+            }
+        });
+    </script>
+
     <script src="_framework/blazor.webassembly.js"></script>
 </body>
-
 </html>
