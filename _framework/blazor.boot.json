@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "Unternehmensberatung-Winterling",
   "resources": {
-    "hash": "sha256-Hzl/xljzD4y3lXBRiBj2zD0sYVqPBaoFs7mXX9Tdmmc=",
+    "hash": "sha256-TxnSt79pNwsPUdeEjrC9ItHxWTsIh8WEs1anSjvKn2w=",
     "jsModuleNative": {
       "dotnet.native.js": "sha256-VdKq87/z5NIxZKmuM+fv38XF+RcEb/bg3jVBwQSfwP4="
     },
@@ -59,7 +59,7 @@
       "System.Text.Json.wasm": "sha256-DyP2B/PTERg2ekwlN3jV8xJELQaHn1zmZnLYsGVlCFE=",
       "System.Text.RegularExpressions.wasm": "sha256-Vl6qsUyQnmrFUIVFVAqnAW1pMOKHVi0p3ZmPfB2mQ98=",
       "System.Threading.wasm": "sha256-gcKBEfBxg8tm/c6fR2rpaf54aIMLqfz2C9fODoeXmRE=",
-      "Unternehmensberatung-Winterling.wasm": "sha256-tUPEqvlZTb9QCy0WYd3txsXbDrjG/pRfQZuDjDacQc8="
+      "Unternehmensberatung-Winterling.wasm": "sha256-WplY0+13+FAYfPa22VJPrkagb4XkGkUJQ2DG9UygtzI="
     }
   },
   "cacheBootResources": true,
