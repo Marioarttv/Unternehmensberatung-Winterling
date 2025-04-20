@@ -7,8 +7,20 @@
     <title>Unternehmensberatung‑Winterling</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="./images/favicon.png" />
-    <!--  ◉ Local dev  = "/"         ◉ GitHub Pages project site = "/Unternehmensberatung-Winterling/" -->
-    <base href="/Unternehmensberatung-Winterling/" />
+
+    <!-- dynamically choose base href -->
+    <script>
+        const base = document.createElement('base');
+        const host = location.hostname;
+        // on localhost or 127.0.0.1, serve from root:
+        if (host === 'localhost' || host === '127.0.0.1') {
+            base.href = '/';
+        } else {
+            // on GH‑Pages user/project site:
+            base.href = '/Unternehmensberatung-Winterling/';
+        }
+        document.head.prepend(base);
+    </script>
 
     <link rel="stylesheet" href="css/app.css" />
 
@@ -159,18 +171,22 @@
     </div>
 
     <!-- Blazor runtime -->
-    <script src="_framework/blazor.webassembly.js" autostart="false"></script>
+    <script src="./_framework/blazor.webassembly.js" autostart="false"></script>
 
-    <!-- Loader helper – hides #loading‑screen once Blazor is ready -->
+
+    <!-- 1) Define hideLoader *before* we load blazor.webassembly.js -->
     <script>
-        (function () {
-            function hideLoader() {
-                document.body.classList.add('blazor-ready');
-                document.getElementById('loading-screen')?.remove();
-            }
+        function hideLoader() {
+            document.body.classList.add('blazor-ready');
+            const loader = document.getElementById('loading-screen');
+            if (loader) loader.remove();
+        }
+    </script>
 
-            Blazor.start().then(hideLoader).catch(hideLoader);
-        })();
+    <!-- 2) Load Blazor runtime, and start it onload -->
+    <script src="_framework/blazor.webassembly.js"
+            autostart="false"
+            onload="Blazor.start().then(hideLoader).catch(hideLoader)">
     </script>
 
 </body>
