@@ -8,19 +8,8 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="./images/favicon.png" />
 
-    <!-- dynamically choose base href -->
-    <script>
-        const base = document.createElement('base');
-        const host = location.hostname;
-        // on localhost or 127.0.0.1, serve from root:
-        if (host === 'localhost' || host === '127.0.0.1') {
-            base.href = '/';
-        } else {
-            // on GH‑Pages user/project site:
-            base.href = '/Unternehmensberatung-Winterling/';
-        }
-        document.head.prepend(base);
-    </script>
+    <base href="/" />
+
 
     <link rel="stylesheet" href="css/app.css" />
 
